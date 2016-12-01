@@ -31,8 +31,6 @@ public:
     //Default constructor
     Trie(){root = new Node;};
 
-    // Root getter. Too laizy to make a setter too so I don't make it to return const Node*.
-    Node* getRoot(){return root;};
     // Check if the provided string is in the tree. Not implemented inline.
     bool isInTree(string);
     // Add the provided string to the tree
