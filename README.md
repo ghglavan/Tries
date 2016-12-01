@@ -1,4 +1,4 @@
 # Tries
 Tries C++ implementation using unordered_map.
 
-<link>https://en.wikipedia.org/wiki/Trieasdsa</link>
+<a>https://en.wikipedia.org/wiki/Trie</a>
