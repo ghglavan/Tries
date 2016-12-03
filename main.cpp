@@ -35,7 +35,7 @@ public:
     bool isInTree(string);
     // Add the provided string to the tree
     void addToTree(string);
-    // If the provided string exists in the tree, the function remuves it and returns true, otherwise it returns false.
+    // If the provided string exists in the tree, the function removes it and returns true, otherwise it returns false.
     bool removeFromTree(string);
 };
 
