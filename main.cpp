@@ -41,17 +41,36 @@ public:
 
 void Trie::addToTree(string s){
     addToTree(s.begin(),s.end(),root);
+    
+    // Another aroach(non-recursive)
+    /*
+     Node * r = root;
+    for(auto it = s.begin(); it < s.end(); it++){
+        if(it+1 == s.end()){
+            r->getisWordref() = true;
+        }
+        if(r->getMref().find(*it) == r->getMref().end()){
+            r->getMref()[*it] = new Node;
+            r = r->getMref()[*it];
+        }else{
+            r = r->getMref()[*it];
+        }
+    }
+    */
+    
+    
+    
 }
 
 void Trie::addToTree(string::iterator beg,string::iterator en,Node* r){
     if(beg+1 == en){
         try{
             r->getMref().at(*beg);
-            r->getisWordref() = true;
+            r->getMref().at(*beg)->getisWordref() = true;
         }
         catch(out_of_range){
             r->getMref()[*beg] = new Node;
-            r->getisWordref() = true;
+            r->getMref()[*beg]->getisWordref() = true;
         }
     }else{
         try{
@@ -67,6 +86,20 @@ void Trie::addToTree(string::iterator beg,string::iterator en,Node* r){
 
 bool Trie::isInTree(string s){
     return isInTree(s.begin(),s.end(),root);
+    
+    //Another aproach(non-recursive)
+    /*
+    Node *r = root;
+    for(auto c : s){
+        if(r->getMref().find(c) == r->getMref().end()){
+            return 0;
+        }else{
+            r = r->getMref().at(c);
+        }
+    }
+    return r->getisWordref();
+    */
+    
 }
 
 bool Trie::isInTree(string::iterator beg,string::iterator en,Node*r){
@@ -97,31 +130,31 @@ bool Trie::removeFromTree(string s){
 }
 
 void Trie::removeFromTree(string::iterator beg,string::iterator en,Node *r,int *mark){
-    if(beg+1 != en){
+   if(beg+1 != en){
         removeFromTree(beg+1,en,r->getMref()[*beg],mark);
-    }else{
-        delete r->getMref().at(*beg);
-        r->getMref().erase(*beg);
+    }else if(r->getMref().size() == 1){
+        r->getisWordref()= false;
+        *mark = 1;
+
+        if( r->getMref().at(*beg)->getMref().size() == 0){
+            delete r->getMref().at(*beg);
+            r->getMref().erase(*beg);
+            *mark = 0;
+        }
         return;
     }
     if(r->getMref().size() == 1 && !r->getisWordref() && *mark == 0){
-        cout<<"sunt la "<<*beg<<"\n";
         delete r->getMref().at(*beg);
         r->getMref().erase(*beg);
     }else{
         *mark = 1;
     }
 
+
 }
 
 int main()
 {
-    Trie t;
-    t.addToTree("das");
-    t.addToTree("nu");
-    t.addToTree("dasdas");
-    cout<<t.isInTree("da");
-    t.removeFromTree("dasdas");
-    cout<<t.isInTree("das");
+   
     return 0;
 }
